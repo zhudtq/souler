@@ -8,6 +8,8 @@ class loginPage extends StatefulWidget {
 }
 
 class _loginState extends State<loginPage> {
+  final _loginFormKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,18 +50,62 @@ class _loginState extends State<loginPage> {
 
   Widget mainForm() {
     return Container(
-      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          TextField(),
-          TextField(),
-          TextField(),
-        ],
-      ),
-    );
+        padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+        child: Form(
+          key: _loginFormKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+
+              Theme(
+                data: new ThemeData(primaryColor: Colors.white),
+                child: TextFormField(
+                  style: new TextStyle(color: Colors.white),
+                  decoration: new InputDecoration(
+                    labelText: 'User ID',
+                    labelStyle: TextStyle(color: Colors.white),
+                    enabledBorder: new UnderlineInputBorder(
+                      borderSide: new BorderSide(
+                        color: Colors.white
+                      ),
+                    ),
+                  ),
+                  validator: (userId) {
+                    if (userId.isEmpty) {
+                      return 'Please enter validated ID';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              
+              Theme(
+                data: new ThemeData(primaryColor: Colors.white),
+                child: TextFormField(
+                  style: new TextStyle(color: Colors.white),
+                  decoration: new InputDecoration(
+                    labelText: 'Password',
+                    labelStyle: TextStyle(color: Colors.white),
+                    enabledBorder: new UnderlineInputBorder(
+                      borderSide: new BorderSide(
+                        color: Colors.white
+                      ),
+                    ),
+                  ),
+                  validator: (password) {
+                    if (password.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+
+            ],
+          ),
+        ));
   }
 
   Widget submitBtn() {
@@ -67,7 +113,6 @@ class _loginState extends State<loginPage> {
       padding: const EdgeInsets.all(12.0),
       child: Column(
         children: <Widget>[
-
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -85,14 +130,13 @@ class _loginState extends State<loginPage> {
                     ),
                   ),
                   onPressed: () {
-                    print('sign in');
+                    print(_loginFormKey.currentState.validate());
                   },
                   shape: StadiumBorder(),
                 ),
               )
             ],
           ),
-
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -117,10 +161,8 @@ class _loginState extends State<loginPage> {
               ),
             ],
           ),
-
         ],
       ),
     );
   }
-
 }

@@ -9,6 +9,30 @@ class loginPage extends StatefulWidget {
 
 class _loginState extends State<loginPage> {
   final _loginFormKey = GlobalKey<FormState>();
+  final userIdController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    userIdController.addListener(_showUserId);
+    passwordController.addListener(_showPassword);
+  }
+
+  @override
+  void dispose() {
+    userIdController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  String _showUserId() {
+    return userIdController.text;
+  }
+
+  String _showPassword() {
+    return passwordController.text;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +86,7 @@ class _loginState extends State<loginPage> {
               Theme(
                 data: new ThemeData(primaryColor: Colors.white),
                 child: TextFormField(
+                  controller: userIdController,
                   style: new TextStyle(color: Colors.white),
                   decoration: new InputDecoration(
                     labelText: 'User ID',
@@ -84,6 +109,7 @@ class _loginState extends State<loginPage> {
               Theme(
                 data: new ThemeData(primaryColor: Colors.white),
                 child: TextFormField(
+                  controller: passwordController,
                   style: new TextStyle(color: Colors.white),
                   decoration: new InputDecoration(
                     labelText: 'Password',
@@ -131,6 +157,10 @@ class _loginState extends State<loginPage> {
                   ),
                   onPressed: () {
                     print(_loginFormKey.currentState.validate());
+                    if (_loginFormKey.currentState.validate()) {
+                      print(_showUserId());
+                      print(_showPassword());
+                    }
                   },
                   shape: StadiumBorder(),
                 ),

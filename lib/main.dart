@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import './pages/initialLogin/login.dart';
+import './pages/initial/login.dart';
 
 void main(){
   // debugPaintSizeEnabled = true;
